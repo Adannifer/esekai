@@ -1,0 +1,87 @@
+/* One shared case-study system. Homepage styles stay in content.css. */
+.portfolio-case { max-width:1280px; margin:auto; padding:112px var(--gutter) 48px; color:#e4e0da; font:400 20px/1.65 Georgia,"Times New Roman",serif; }
+.case-opening { display:flex; flex-direction:column; gap:40px; margin-bottom:72px; }
+.case-summary { order:-1; width:100%; }
+.portfolio-head { text-align:center; margin:0 auto 32px; max-width:900px; }
+.portfolio-head > p:first-child,.original { color:#bcbcbc; font-size:16px; margin:0; }
+.portfolio-head h1 { font:700 clamp(40px,5.4vw,72px)/1.12 "Bodoni Moda",Georgia,serif; letter-spacing:-.025em; margin:16px 0 24px; }
+.portfolio-head h1:focus { outline:none; }
+.portfolio-head .deck { max-width:58ch; margin:0 auto 16px; font-size:20px; line-height:1.6; }
+.original { display:block; }
+.facts { display:flex; flex-wrap:wrap; justify-content:center; gap:32px; background:none; color:#eeeae2; padding:24px 0; margin:0 auto; max-width:1040px; text-align:center; }
+.facts > div { flex:1 1 160px; }
+.facts dt { color:#d9bd77; font-size:16px; font-style:italic; font-weight:400; margin:0 0 12px; }
+.facts dd { margin:0; font-size:21px; font-weight:400; line-height:1.4; }
+.portfolio-case .media { margin:0 auto; width:100%; overflow:hidden; border-radius:16px; }
+.portfolio-case .media img { display:block; width:100%; height:auto; max-height:800px; object-fit:cover; }
+.case-opening > .media { max-width:1040px; }
+.case-opening > .media:not(.phone-photo) img { aspect-ratio:16/10; object-position:center; }
+.portfolio-case .media.phone-photo { width:min(100%,560px); height:600px; }
+.portfolio-case .media.phone-photo img { height:100%; object-fit:cover; }
+.portfolio-case .media.poster { max-width:760px; }
+.portfolio-case .media.poster img { object-fit:contain; max-height:none; }
+.portfolio-case .film { display:block; width:min(100%,360px); margin:0 auto; align-self:center; }
+.portfolio-case .film video { display:block; width:100%; height:auto; aspect-ratio:9/16; max-height:none; object-fit:cover; border-radius:16px; }
+.portfolio-case .film figcaption { display:block; padding:0; margin:8px 0 0; font:400 14px/1.5 Georgia,serif; color:#bcbcbc; text-align:center; }
+.prose-chapter,.visual-chapter,.campaign,.feedback { margin:0 auto 64px; padding:0; text-align:center; }
+.prose-chapter,.chapter-copy { width:100%; max-width:660px; margin-left:auto; margin-right:auto; }
+.portfolio-case h2,.portfolio-case h3 { color:#e8d398; font:700 clamp(32px,3.5vw,48px)/1.15 "Bodoni Moda",Georgia,serif; letter-spacing:-.025em; text-align:center; margin:0 auto 24px; width:100%; }
+.prose-chapter p,.chapter-copy p { margin:0 auto; width:100%; max-width:56ch; font-size:20px; line-height:1.65; color:#e4e0da; text-align:center; text-wrap:balance; }
+.portfolio-case .prose-chapter,.portfolio-case .chapter-copy { text-align:center; transform:none; padding:0; }
+.visual-chapter { display:flex; flex-direction:column; gap:24px; }
+.visual-chapter .chapter-copy { order:-1; }
+.visual-chapter > .media { max-width:900px; }
+.photo-pair { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px auto 64px; max-width:960px; align-items:start; }
+.photo-pair .portrait img { aspect-ratio:3/4; object-fit:cover; }
+.campaign > .photo-pair { margin-bottom:16px; }
+.campaign > .media { margin-top:24px; }
+.feedback { max-width:800px; }
+.feedback-pair { display:flex; justify-content:center; flex-wrap:wrap; gap:16px; }
+.attendee-quote { flex:1 1 250px; background:#191919; border-radius:16px; padding:24px; margin:0; max-width:400px; }
+.attendee-quote p { font-size:20px; margin:0 0 16px; }
+.attendee-quote cite { color:#bcbcbc; font-size:14px; font-style:normal; }
+.portfolio-end { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding:24px 0; border-top:1px solid #383838; font-size:18px; letter-spacing:0; }
+.portfolio-end a { color:#f2cc00; }
+.portfolio-end button { background:none; border:0; padding:12px 0; color:#ededed; font:inherit; }
+.case-close { font-family:Georgia,serif; font-size:16px; letter-spacing:0; background:#090909; color:#e8d398; border:1px solid #6b6048; text-transform:none; }
+.case-close:hover { background:#17140e; transform:none; }
+@media(max-width:700px) {
+ .portfolio-case { padding:96px 20px 32px; }
+ .case-opening { gap:24px; margin-bottom:48px; }
+ .facts { padding:20px; gap:24px 16px; }
+ .facts > div { flex-basis:calc(50% - 16px); min-width:0; }
+ .facts dd { font-size:20px; }
+ .portfolio-case h2,.portfolio-case h3 { font-size:34px; }
+ .prose-chapter,.visual-chapter,.campaign,.feedback { margin-bottom:48px; }
+ .portfolio-case .media.phone-photo { height:460px; }
+ .photo-pair { gap:12px; margin-bottom:48px; }
+}
+
+/* Wide photographic sequences; copy keeps its quiet central reading column. */
+.portfolio-case { max-width:none; padding-left:16px; padding-right:16px; }
+.case-summary { max-width:1100px; margin:auto; }
+.case-opening > .media,.visual-chapter > .media { max-width:none; }
+.case-opening > .media:not(.phone-photo) img,.visual-chapter > .media:not(.poster) img { aspect-ratio:16/9; max-height:none; }
+.portfolio-case .media img { transform:translateY(var(--travel,0px)) scale(1.07); }
+.portfolio-case .media.poster img { transform:none; }
+.portfolio-case .media { clip-path:inset(0 var(--crop,0%) round 16px); }
+.film-spread { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.64fr) minmax(0,1fr); gap:12px; width:100%; align-items:start; }
+.portfolio-case .film-spread .film { width:100%; }
+.portfolio-case .film-spread .media { height:100%; max-width:none; }
+.portfolio-case .film-spread .media img { height:100%; min-height:100%; aspect-ratio:auto; object-fit:cover; }
+.case-video-toggle { display:block; margin:8px auto 0; padding:10px 16px; border:1px solid #6b6048; border-radius:30px; background:#090909; color:#e8d398; font:400 15px Georgia,serif; }
+.case-video-toggle:hover { background:#242017; }
+.portfolio-case .photo-pair { max-width:none; }
+.portfolio-case .media.phone-photo { width:100%; max-width:none; height:70svh; }
+.portfolio-case .film-spread .film { align-self:start; }
+@media(max-width:700px) {
+ .portfolio-case { padding-left:12px; padding-right:12px; }
+ .case-summary,.prose-chapter,.chapter-copy { padding-inline:12px; }
+ .film-spread { grid-template-columns:1fr 1fr; gap:8px; }
+ .film-spread > .film { grid-column:1/-1; grid-row:1; max-width:360px; }
+ .portfolio-case .film-spread .media { height:260px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .portfolio-case .media { clip-path:none; }
+ .portfolio-case .media img { transform:none; }
+}
