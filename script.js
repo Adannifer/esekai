@@ -1,4 +1,37 @@
-// Native pointer, case scroll choreography and playback controls.
+// Scroll reveals, hero parallax, case scroll choreography and playback controls.
+document.documentElement.classList.add('js');
+
+// Reveal on scroll. threshold:0 on purpose: Chrome counts clip-path in the
+// intersection area, so the clip-path card reveals would never reach a higher threshold.
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    revealObserver.unobserve(entry.target);
+  });
+}, {threshold: 0, rootMargin: '0px 0px -14% 0px'});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Hero: logo and ambient light follow the pointer.
+const heroEl = document.querySelector('.hero');
+heroEl.addEventListener('pointermove', event => {
+  const rect = heroEl.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width;
+  const y = (event.clientY - rect.top) / rect.height;
+  heroEl.style.setProperty('--mx', (x - .5).toFixed(3));
+  heroEl.style.setProperty('--my', (y - .5).toFixed(3));
+  heroEl.style.setProperty('--px', (x * 100) + '%');
+  heroEl.style.setProperty('--py', (y * 100) + '%');
+});
+
+// Coming-soon card: glow follows the pointer.
+const comingEl = document.querySelector('.project-coming');
+comingEl?.addEventListener('pointermove', event => {
+  const rect = comingEl.getBoundingClientRect();
+  comingEl.style.setProperty('--cx', ((event.clientX - rect.left) / rect.width * 100) + '%');
+  comingEl.style.setProperty('--cy', ((event.clientY - rect.top) / rect.height * 100) + '%');
+});
+
 const dialog = document.querySelector('#case-dialog');
 const content = document.querySelector('#case-content');
 let returnFocus = null;
