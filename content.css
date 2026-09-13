@@ -117,3 +117,13 @@ nav a { letter-spacing:.1em; }
   .logo-stage { opacity:1; transform:none; filter:none; }
   .js .reveal-lines .line > span { transform:none; }
 }
+
+/* Sound toggle: every video is muted until its own speaker button is pressed */
+.has-sound-toggle { position:relative; }
+.sound-toggle { position:absolute; top:.9rem; right:.9rem; z-index:5; display:inline-flex; align-items:center; gap:.5rem; padding:.5rem .8rem .5rem .7rem; border:1px solid rgba(255,236,169,.45); border-radius:2rem; background:rgba(0,0,0,.55); color:var(--ink); font:600 .68rem/1 var(--font-body); letter-spacing:.1em; text-transform:uppercase; cursor:pointer; backdrop-filter:blur(6px); transition:background .25s,border-color .25s,color .25s; }
+.sound-toggle::before { content:""; width:.8rem; height:.8rem; background:currentColor; -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M16 8l5 8M21 8l-5 8' stroke='%23000' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M16 8l5 8M21 8l-5 8' stroke='%23000' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat; }
+.sound-toggle[aria-pressed="true"] { background:var(--yellow); border-color:var(--yellow); color:#0a0904; }
+.sound-toggle[aria-pressed="true"]::before { -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M16 7a6 6 0 010 10M16 10a2.5 2.5 0 010 4' stroke='%23000' stroke-width='2' fill='none'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M16 7a6 6 0 010 10M16 10a2.5 2.5 0 010 4' stroke='%23000' stroke-width='2' fill='none'/%3E%3C/svg%3E"); }
+.cover-project .sound-toggle { top:auto; bottom:.9rem; right:.9rem; opacity:0; transition:opacity .3s; }
+.project:hover .sound-toggle,.project:focus-within .sound-toggle,.cover-project.is-previewing .sound-toggle { opacity:1; }
+@media (max-width:760px) { .cover-project .sound-toggle { opacity:1; } }

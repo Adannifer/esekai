@@ -32,6 +32,39 @@ comingEl?.addEventListener('pointermove', event => {
   comingEl.style.setProperty('--cy', ((event.clientY - rect.top) / rect.height * 100) + '%');
 });
 
+// Every video starts muted. A speaker button on each one turns sound on for that video only.
+function attachSoundToggle(video) {
+  if (video._soundToggle) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = .6;
+  const host = video.closest('figure') || video.parentElement;
+  host.classList.add('has-sound-toggle');
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'sound-toggle';
+  const sync = () => {
+    button.setAttribute('aria-pressed', String(!video.muted));
+    button.setAttribute('aria-label', video.muted ? 'Turn sound on' : 'Turn sound off');
+    button.textContent = video.muted ? 'Sound off' : 'Sound on';
+  };
+  button.addEventListener('click', event => {
+    event.preventDefault(); event.stopPropagation();
+    video.muted = !video.muted;
+    if (!video.muted) {
+      document.querySelectorAll('video').forEach(other => { if (other !== video) other.muted = true; });
+      document.querySelectorAll('.sound-toggle').forEach(b => b._sync?.());
+      if (video.paused) video.play().catch(() => {});
+    }
+    sync();
+  });
+  button._sync = sync;
+  sync();
+  host.append(button);
+  video._soundToggle = button;
+}
+document.querySelectorAll('video').forEach(attachSoundToggle);
+
 const dialog = document.querySelector('#case-dialog');
 const content = document.querySelector('#case-content');
 let returnFocus = null;
@@ -109,13 +142,14 @@ let caseCleanup = () => {};
 function setupCaseExperience() {
   caseCleanup();
   const videos = [...content.querySelectorAll('.film video')];
+  content.querySelectorAll('video').forEach(attachSoundToggle);
   videos.forEach(video => {
     video.loop = true;
-    video.volume = .5;
     video.controls = false;
     const figure = video.closest('figure');
-    const pair = content.querySelector('.photo-pair');
-    if (pair && !figure.closest('.film-spread')) {
+    const main = figure.closest('.case-main');
+    const pair = main?.querySelector('.photo-pair');
+    if (main && pair && !figure.closest('.film-spread')) {
       const spread = document.createElement('div');
       spread.className = 'film-spread';
       figure.before(spread);
@@ -127,15 +161,15 @@ function setupCaseExperience() {
     }
     const button = document.createElement('button');
     button.className = 'case-video-toggle';
-    button.textContent = 'Play with sound';
+    button.textContent = 'Play';
     figure.append(button);
     let manualPause = false;
     button.addEventListener('click', () => {
       manualPause = !video.paused;
-      if (manualPause) video.pause(); else video.play().catch(() => { button.textContent = 'Play with sound'; });
+      if (manualPause) video.pause(); else video.play().catch(() => { button.textContent = 'Play'; });
     });
     video.addEventListener('play', () => { button.textContent = 'Pause film'; });
-    video.addEventListener('pause', () => { button.textContent = 'Play with sound'; });
+    video.addEventListener('pause', () => { button.textContent = 'Play'; });
     video._autoPlay = () => { if (!manualPause && !reduceMotion.matches) video.play().catch(() => {}); };
   });
   const observer = new IntersectionObserver(entries => {
@@ -170,7 +204,6 @@ function setupCaseExperience() {
 }
 syncRoute();
 document.querySelectorAll('.reel-rail video').forEach(video => {
-  video.volume = 0.5;
   const title = video.getAttribute('aria-label');
   let wanted = false;
   let request = 0;
@@ -178,12 +211,10 @@ document.querySelectorAll('.reel-rail video').forEach(video => {
   const play = async () => {
     const token = ++request;
     wanted = true;
-    video.muted = false;
     try { await video.play(); if (!wanted) video.pause(); }
     catch {
       if (token !== request) return;
       wanted = false;
-      document.querySelector('.rail-note').textContent = 'Click a video to play with sound · Hover to continue exploring';
     }
   };
   video.addEventListener('pointerenter', event => {
@@ -224,7 +255,7 @@ document.querySelectorAll('.cover-project').forEach(card => {
   button.setAttribute('aria-label', 'Play preview for ' + card.querySelector('h2').textContent);
   button.setAttribute('aria-pressed', 'false');
   card.appendChild(button);
-  video.volume = 0.5;
+  video.muted = true;
   let wanted = false;
   let version = 0;
   const stop = () => {
