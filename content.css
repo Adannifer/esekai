@@ -75,8 +75,8 @@ nav a { letter-spacing:.1em; }
 
 /* Statement */
 .statement p { font-size:var(--t-h2); line-height:.98; max-width:16ch; }
-.statement .line { display:block; overflow:hidden; }
-.statement .line > span { display:block; font:inherit; letter-spacing:inherit; text-transform:none; }
+.statement .line,.statement .line > span { display:block; font:inherit; letter-spacing:inherit; text-transform:none; }
+.statement .line { overflow:hidden; }
 
 /* About */
 .about { grid-template-columns:1.2fr .8fr; }
