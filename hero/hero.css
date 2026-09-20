@@ -95,7 +95,7 @@
 }
 
 /* dev-only replay button, preview build */
-.hx-replay { position:fixed; left:14px; bottom:14px; z-index:90; padding:.5rem .8rem;
+.hx-replay { position:fixed; left:14px; bottom:76px; z-index:90; padding:.5rem .8rem;
   border:1px solid rgba(255,236,169,.4); border-radius:2rem; background:rgba(0,0,0,.6);
   color:#e8d398; font:600 .7rem/1 system-ui,sans-serif; letter-spacing:.1em;
   text-transform:uppercase; cursor:pointer; backdrop-filter:blur(6px); }
