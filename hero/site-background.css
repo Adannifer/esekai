@@ -27,3 +27,16 @@ body::before {
   background-size:cover;
   background-attachment:fixed;
 }
+
+/* The hero must not paint a second, un-dimmed copy of the same background:
+   body::before already covers the whole page, so the hero's own opaque
+   bg.webp made the first screen visibly brighter and left a hard rectangular
+   seam as .hx-stage scaled down on scroll. Hide it and let the shared one
+   show through; the prism light still belongs to the hero and gets extra
+   bleed so it keeps covering while the stage scales to 0.9. */
+.hx-bg { display:none; }
+.hx-prism { transform:translate3d(calc(var(--hpx,0) * 6px),0,0) scale(1.14);
+  /* dissolve the light before the section ends, so scrolling past the hero
+     never shows a horizontal cut where the prism stops */
+  -webkit-mask-image:linear-gradient(to bottom,#000 42%,rgba(0,0,0,.45) 74%,transparent 96%);
+          mask-image:linear-gradient(to bottom,#000 42%,rgba(0,0,0,.45) 74%,transparent 96%); }
