@@ -1,0 +1,29 @@
+/* Preview: one artist background continues beneath the entire site. */
+html { background:#090808; }
+body {
+  position:relative;
+  isolation:isolate;
+  background:#090808;
+}
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:linear-gradient(rgba(5,5,6,.18),rgba(5,5,6,.18)),url("assets/bg.webp");
+  background-position:center center;
+  background-size:cover;
+}
+.hero.hx-host,.moments,.work,.about,.contact { background:transparent; }
+.statement {
+  background:rgba(96,70,9,.16);
+  color:var(--ink);
+}
+.statement > span { color:var(--yellow-hot); }
+.case-dialog {
+  background-image:linear-gradient(rgba(5,5,6,.26),rgba(5,5,6,.26)),url("assets/bg.webp");
+  background-position:center center;
+  background-size:cover;
+  background-attachment:fixed;
+}
