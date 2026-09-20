@@ -1,9 +1,8 @@
-# ESEKAI hero (预览版 WIP)
+# ESEKAI hero
 
 本轮范围：开屏入场、鼠标光泽、下滑进入 Moments。未做：星星鼠标光标、case study、项目 hover、Image Trail。
 
-打开 `hero-preview.html`（不是 index.html）。左下角 **Replay intro** 是预览专用按钮，上线前删掉。
-现有 `index.html` / `styles.css` / `content.css` / `cases.css` / `script.js` 一个字都没改。
+已接入 `index.html`。预览页 `hero-preview.html` 和 Replay 按钮已删除；`hero.js` 里那段 replay 绑定用 `if (btn)` 守着，想再调节奏时在 `index.html` 里加一行 `<button class="hx-replay">` 即可，样式还在 `hero.css`。
 
 ## 素材来源与层序
 
@@ -44,6 +43,8 @@
 * 背景/素材1.png、素材2.png 用途仍不明（叠加均使终稿误差变大），本轮未用。
 * 异界重启矢量字体.ai 未解析，本轮未用。
 
-## 本轮预览调整（2026-09-20）
+## 定稿记录（2026-09-20）
 
-用户反馈原 2.4 秒开场太快，因此本地预览改为约 4.4 秒。`site-background-preview.css` 让主页各区块共用美工的 `背景+噪点质感`（网页优化版 `bg.webp`），并在案例弹窗铺同一背景。该文件只加载于 `hero-preview.html`；正式 `index.html` 还没有接入本轮改动。光标暂不修改。
+* 开场总时长 **4.4 秒**（初版 2.4 秒偏快，已按反馈放慢并定稿）。
+* `site-background.css` 让首页各区块与案例弹窗共用美工的 `背景+噪点质感`（网页优化版 `bg.webp`），全站背景连续、无接缝。
+* 星星鼠标光标仍未做，后续单独一轮。
